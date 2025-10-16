@@ -1,0 +1,51 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environment ---
+venv/
+.env/
+.venv/
+ENV/
+env/
+env.bak/
+
+# --- IDE / Editors ---
+.vscode/
+.idea/
+*.iml
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Logs / Cache ---
+*.log
+*.tmp
+*.bak
+*.swp
+.cache/
+__pypackages__/
+
+# --- Data / Keys ---
+*.key
+*.pem
+*.p12
+*.crt
+*.csr
+*.der
+*.json
+
+# --- Custom project files ---
+# Do not commit API keys or credentials
+tts_test_1.py.save
+*.wav
+*.mp3
+*.ogg
+*.flac
+*.webm
+
+# --- Token files ---
+*.env
+.env.*
