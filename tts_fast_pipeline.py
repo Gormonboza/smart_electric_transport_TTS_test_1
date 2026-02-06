@@ -49,20 +49,11 @@ GPT_MODEL = "gpt-4o-mini"
 
 # Оптимизация: агрессивный старт TTS
 TTS_CHUNK_SCHEDULE = [50]  # Было [60, 100, 140] — теперь начинаем с 50 символов
-TTS_MIN_BUFFER = 25        # Минимум символов перед первой отправкой в TTS
+TTS_MIN_BUFFER = 15         # v4: снижено с 25 для быстрого старта
 
-# Системные промпты (укороченные для скорости — меньше токенов = быстрее)
-SYSTEM_PROMPT_RU = (
-    "Ты — голос умного электротранспорта в городе Нуану. "
-    "Шуточно и кратко опиши то, что видишь, как будто разговариваешь с пассажирами. "
-    "Максимум 2 предложения. По-русски."
-)
-
-SYSTEM_PROMPT_EN = (
-    "You are the voice of a smart electric shuttle in NUANU city. "
-    "Briefly and humorously describe what you see, as if talking to passengers. "
-    "Max 2 sentences."
-)
+# Промпт максимально сжат — каждый токен = задержка TTFT
+SYSTEM_PROMPT_RU = "Голос шаттла NUANU. Шутка про увиденное, 1-2 предложения, по-русски."
+SYSTEM_PROMPT_EN = "NUANU shuttle voice. Joke about what you see, 1-2 sentences."
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -337,7 +328,8 @@ class FastPipeline:
                         {"role": "user", "content": trigger},
                     ],
                     stream=True,
-                    max_tokens=100,  # Ограничиваем длину для скорости
+                    max_tokens=80,       # Короче = быстрее
+                    temperature=0,       # Детерминированный = быстрее sampling
                 )
 
                 first_token = False
